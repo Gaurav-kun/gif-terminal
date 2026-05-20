@@ -43,9 +43,9 @@ t = gifos.Terminal(width=700, height=500, xpad=10, ypad=10)
 t.set_prompt(f"{R}{USERNAME}{X}@{G}night-dojo{X} ~> ")
 
 # -- Boot sequence (Night Dojo) --
-t.gen_text(f"{C}⚔️  Night Dojo Terminal v2.0{R}{X}", row_num=1)
+t.gen_text(f"{C}= Night Dojo Terminal v2.0 ={X}", row_num=1)
 t.clone_frame(8)
-t.gen_text(f"{N}[OK]{X} Kernel loaded — Musashi discipline engaged", row_num=2)
+t.gen_text(f"{N}[OK]{X} Kernel loaded - Musashi discipline engaged", row_num=2)
 t.clone_frame(5)
 t.gen_text(f"{N}[OK]{X} C, C++, Rust runtimes ready", row_num=3)
 t.clone_frame(5)
@@ -56,7 +56,7 @@ t.clone_frame(8)
 t.gen_prompt(row_num=5)
 t.gen_typing_text("whoami", row_num=5, contin=True, speed=1)
 t.clone_frame(5)
-t.gen_text(f"{C}Gaurav Saikia{R}{X}  —  {G}BCA Student & OSS Believer{X}", row_num=6)
+t.gen_text(f"{C}Gaurav Saikia{R}{X}  -  {G}BCA Student & OSS Believer{X}", row_num=6)
 t.clone_frame(15)
 
 # -- GitHub stats command --
@@ -65,7 +65,7 @@ t.gen_typing_text("gh-stats", row_num=8, contin=True, speed=1)
 t.clone_frame(5)
 
 t.gen_text("", row_num=9)
-t.gen_text(f"{C}═════ GitHub Stats ═════{X}", row_num=10)
+t.gen_text(f"{C}===== GitHub Stats ====={X}", row_num=10)
 t.clone_frame(3)
 
 if has_stats:
@@ -99,7 +99,7 @@ for i, line in enumerate(stats_lines):
 
 end_stats = 11 + len(stats_lines)
 t.clone_frame(10)
-t.gen_text(f"{C}══════════════════════{X}", row_num=end_stats)
+t.gen_text(f"{C}========================={X}", row_num=end_stats)
 t.clone_frame(15)
 
 # -- Clear --
@@ -114,7 +114,7 @@ t.gen_typing_text("cat /home/dojo/arsenal.txt", row_num=1, contin=True, speed=1)
 t.clone_frame(5)
 
 t.gen_text("", row_num=2)
-t.gen_text(f"{C}═══ Arsenal ═══{X}", row_num=3)
+t.gen_text(f"{C}=== Arsenal ==={X}", row_num=3)
 t.clone_frame(3)
 
 skills = [
@@ -124,7 +124,7 @@ skills = [
     (f"{R}Tools:{X}     ", "Git, Neovim, Kitty, Figma, Blender, Photoshop"),
     (f"{R}OS:{X}        ", "Arch Linux · GNOME 50 · Windows"),
     (f"{R}Terminal:{X}  ", "Kitty, Oh My Posh, Bash, PowerShell"),
-    (f"{R}Featured:{X}  ", "animanga-archive ⚔️  (2.5k+ JS, 1.8k+ CSS)"),
+    (f"{R}Featured:{X}  ", "animanga-archive  (2.5k+ JS, 1.8k+ CSS)"),
 ]
 
 for i, (label, value) in enumerate(skills):
@@ -135,7 +135,7 @@ t.clone_frame(10)
 
 # -- Closing --
 last_skill = 4 + len(skills)
-t.gen_text(f"{C}══════════════════{X}", row_num=last_skill)
+t.gen_text(f"{C}==================={X}", row_num=last_skill)
 t.clone_frame(5)
 
 final_row = last_skill + 2
