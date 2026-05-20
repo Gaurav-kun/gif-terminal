@@ -3,29 +3,12 @@ from datetime import datetime
 import os
 import requests
 
-# ============================================
-# Terminal GIF with GitHub Stats
-# ============================================
-# 
-# REQUIREMENTS:
-# 1. Create a .env file in the project folder
-# 2. Add: GITHUB_TOKEN=your_token_here
-#
-# To create the token:
-# - Go to: https://github.com/settings/tokens
-# - Click "Generate new token (classic)"
-# - Select only: read:user
-# - Copy the token and add it to .env
-# ============================================
-
-# Auto-detected from GitHub Actions context; falls back to env var or default.
 USERNAME = (
     os.environ.get("GITHUB_REPOSITORY_OWNER")
     or os.environ.get("GIT_USERNAME")
-    or "dbuzatto"
+    or "Gaurav-kun"
 )
 
-# Function to fetch real number of repos
 def get_total_repos(username):
     try:
         response = requests.get(f"https://api.github.com/users/{username}")
@@ -35,7 +18,6 @@ def get_total_repos(username):
         pass
     return None
 
-# Try to fetch GitHub statistics
 try:
     github_stats = gifos.utils.fetch_github_stats(user_name=USERNAME)
     has_stats = github_stats is not None
@@ -48,92 +30,101 @@ except Exception as e:
     has_stats = False
     github_stats = None
 
-# Fetch real number of repos
 total_repos = get_total_repos(USERNAME)
 
-# Terminal settings
-t = gifos.Terminal(width=700, height=450, xpad=10, ypad=10)
+R = "\x1b[91m"   # crimson
+G = "\x1b[93m"   # gold
+C = "\x1b[96m"   # cyan
+N = "\x1b[92m"   # green
+B = "\x1b[94m"   # blue
+X = "\x1b[0m"    # reset
 
-# -- Initial prompt --
-t.set_prompt(f"\x1b[91m{USERNAME}\x1b[0m@\x1b[93mgithub\x1b[0m ~> ")
+t = gifos.Terminal(width=700, height=500, xpad=10, ypad=10)
+t.set_prompt(f"{R}{USERNAME}{X}@{G}night-dojo{X} ~> ")
 
-# -- Boot sequence --
-t.gen_text("Initializing terminal...", row_num=1)
+# -- Boot sequence (Night Dojo) --
+t.gen_text(f"{C}⚔️  Night Dojo Terminal v2.0{R}{X}", row_num=1)
+t.clone_frame(8)
+t.gen_text(f"{N}[OK]{X} Kernel loaded — Musashi discipline engaged", row_num=2)
 t.clone_frame(5)
-t.gen_text("\x1b[32m[OK]\x1b[0m System ready", row_num=2)
-t.clone_frame(10)
+t.gen_text(f"{N}[OK]{X} C, C++, Rust runtimes ready", row_num=3)
+t.clone_frame(5)
+t.gen_text(f"{N}[OK]{X} Three.js renderer initialized", row_num=4)
+t.clone_frame(8)
 
-# -- Command to view stats --
-t.gen_prompt(row_num=3)
-t.gen_typing_text("github-stats --user " + USERNAME, row_num=3, contin=True, speed=1)
+# -- Whoami --
+t.gen_prompt(row_num=5)
+t.gen_typing_text("whoami", row_num=5, contin=True, speed=1)
+t.clone_frame(5)
+t.gen_text(f"{C}Gaurav Saikia{R}{X}  —  {G}BCA Student & OSS Believer{X}", row_num=6)
+t.clone_frame(15)
+
+# -- GitHub stats command --
+t.gen_prompt(row_num=8)
+t.gen_typing_text("gh-stats", row_num=8, contin=True, speed=1)
 t.clone_frame(5)
 
-# -- Display statistics --
-t.gen_text("", row_num=4)
-t.gen_text(f"\x1b[96m=== GitHub Stats for {USERNAME} ===\x1b[0m", row_num=5)
+t.gen_text("", row_num=9)
+t.gen_text(f"{C}═════ GitHub Stats ═════{X}", row_num=10)
 t.clone_frame(3)
 
 if has_stats:
     repos_count = total_repos if total_repos else github_stats.total_repo_contributions
     stats_lines = [
-        f"\x1b[93mName:\x1b[0m        {github_stats.account_name or USERNAME}",
-        f"\x1b[93mFollowers:\x1b[0m   {github_stats.total_followers}",
-        f"\x1b[93mStars:\x1b[0m       {github_stats.total_stargazers}",
-        f"\x1b[93mCommits:\x1b[0m     {github_stats.total_commits_last_year} (last year)",
-        f"\x1b[93mPRs:\x1b[0m         {github_stats.total_pull_requests_made}",
-        f"\x1b[93mIssues:\x1b[0m      {github_stats.total_issues}",
-        f"\x1b[93mRepos:\x1b[0m       {repos_count}",
-        f"\x1b[93mRank:\x1b[0m        {github_stats.user_rank.level} ({github_stats.user_rank.percentile:.1f}%)",
+        f"{G}Name:{X}        {github_stats.account_name or USERNAME}",
+        f"{G}Followers:{X}   {github_stats.total_followers}",
+        f"{G}Stars:{X}       {github_stats.total_stargazers}",
+        f"{G}Commits:{X}     {github_stats.total_commits_last_year} (last yr)",
+        f"{G}PRs:{X}         {github_stats.total_pull_requests_made}",
+        f"{G}Issues:{X}      {github_stats.total_issues}",
+        f"{G}Repos:{X}       {repos_count}",
+        f"{G}Rank:{X}        {github_stats.user_rank.level} ({github_stats.user_rank.percentile:.1f}%)",
     ]
-    
-    # Top languages
     if github_stats.languages_sorted:
         top_langs = github_stats.languages_sorted[:3]
         langs_str = ", ".join([f"{lang[0]} ({lang[1]}%)" for lang in top_langs])
-        stats_lines.append(f"\x1b[93mTop Langs:\x1b[0m   {langs_str}")
+        stats_lines.append(f"{G}Top Langs:{X}   {langs_str}")
 else:
-    # Example data
     stats_lines = [
-        f"\x1b[93mName:\x1b[0m        {USERNAME}",
-        "\x1b[93mFollowers:\x1b[0m   --",
-        "\x1b[93mStars:\x1b[0m       --",
-        "\x1b[93mCommits:\x1b[0m     -- (configure GITHUB_TOKEN)",
-        "\x1b[93mPRs:\x1b[0m         --",
-        "\x1b[93mIssues:\x1b[0m      --",
-        "\x1b[93mRepos:\x1b[0m       --",
-        "\x1b[93mRank:\x1b[0m        --",
+        f"{G}Name:{X}        Gaurav Saikia",
+        f"{G}Status:{X}      BCA Student · Open-Source Developer",
+        f"{G}Location:{X}    India",
+        f"{G}OS:{X}          Arch Linux / Windows",
+        f"{G}Focus:{X}       Rust + GNOME · Three.js · Web Audio",
     ]
 
 for i, line in enumerate(stats_lines):
-    t.gen_text(line, row_num=6+i)
+    t.gen_text(line, row_num=11+i)
     t.clone_frame(3)
 
+end_stats = 11 + len(stats_lines)
 t.clone_frame(10)
-t.gen_text("\x1b[96m================================\x1b[0m", row_num=6+len(stats_lines))
+t.gen_text(f"{C}══════════════════════{X}", row_num=end_stats)
 t.clone_frame(15)
 
-# -- Clear and Skills --
-t.gen_prompt(row_num=7+len(stats_lines))
-t.gen_typing_text("clear", row_num=7+len(stats_lines), contin=True, speed=1)
-t.clone_frame(5)
+# -- Clear --
+t.gen_prompt(row_num=end_stats+1)
+t.gen_typing_text("clear", row_num=end_stats+1, contin=True, speed=1)
+t.clone_frame(4)
 t.clear_frame()
 
+# -- Skills --
 t.gen_prompt(row_num=1)
-t.gen_typing_text("cat skills.txt", row_num=1, contin=True, speed=1)
+t.gen_typing_text("cat /home/dojo/arsenal.txt", row_num=1, contin=True, speed=1)
 t.clone_frame(5)
 
 t.gen_text("", row_num=2)
-t.gen_text("\x1b[96m=== Tech Stack ===\x1b[0m", row_num=3)
+t.gen_text(f"{C}═══ Arsenal ═══{X}", row_num=3)
 t.clone_frame(3)
 
 skills = [
-    ("\x1b[94mCloud:\x1b[0m       ", "AWS, GCP, OCI, Cloudflare"),
-    ("\x1b[94mDevOps:\x1b[0m      ", "Terraform, Kubernetes, Docker, Git"),
-    ("\x1b[94mCI/CD:\x1b[0m       ", "GitLab, GitHub Actions"),
-    ("\x1b[94mMonitoring:\x1b[0m  ", "Grafana, Prometheus, Jaeger, Loki"),
-    ("\x1b[94mTools:\x1b[0m       ", "Postman, RabbitMQ, MongoDB"),
-    ("\x1b[94mOS:\x1b[0m          ", "macOS, Debian"),
-    ("\x1b[94mLanguages:\x1b[0m   ", "Java, Python"),
+    (f"{R}Languages:{X}  ", "C, C++, Rust, Java, JS, Lua, Python, PHP"),
+    (f"{R}Web:{X}       ", "HTML, CSS, Three.js, Canvas API, Web Audio"),
+    (f"{R}Learning:{X}  ", "TypeScript, React, Node.js, Tailwind, PostgreSQL"),
+    (f"{R}Tools:{X}     ", "Git, Neovim, Kitty, Figma, Blender, Photoshop"),
+    (f"{R}OS:{X}        ", "Arch Linux · GNOME 50 · Windows"),
+    (f"{R}Terminal:{X}  ", "Kitty, Oh My Posh, Bash, PowerShell"),
+    (f"{R}Featured:{X}  ", "animanga-archive ⚔️  (2.5k+ JS, 1.8k+ CSS)"),
 ]
 
 for i, (label, value) in enumerate(skills):
@@ -141,20 +132,23 @@ for i, (label, value) in enumerate(skills):
     t.clone_frame(2)
 
 t.clone_frame(10)
-t.gen_text("\x1b[96m==================\x1b[0m", row_num=4+len(skills))
+
+# -- Closing --
+last_skill = 4 + len(skills)
+t.gen_text(f"{C}══════════════════{X}", row_num=last_skill)
 t.clone_frame(5)
 
-# -- Final message --
-final_row = 5 + len(skills)
+final_row = last_skill + 2
 t.gen_prompt(row_num=final_row)
-t.gen_typing_text("echo 'Thanks for visiting my profile!'", row_num=final_row, contin=True, speed=1)
+t.gen_typing_text("fortune | cowsay", row_num=final_row, contin=True, speed=1)
 t.clone_frame(5)
-t.gen_text("\x1b[92mThanks for visiting my profile!\x1b[0m", row_num=final_row+1)
+t.gen_text(f"{G}  \"Every config intentional. Every detail version-controlled.\"{X}", row_num=final_row+1)
+t.clone_frame(5)
+t.gen_text(f"{R}  ~ Gaurav Saikia, Night Dojo{X}", row_num=final_row+2)
 t.clone_frame(40)
 
-# Generate the GIF
 t.gen_gif()
 
-print("\n GIF generated: output.gif")
-print("\nTo use in your README.md:")
-print('![Terminal GIF](./output.gif)')
+print(f"\n{GIF generated: output.gif}")
+print("\nEmbed in README.md:")
+print("![Terminal GIF](./output.gif)")
