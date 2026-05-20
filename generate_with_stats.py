@@ -149,6 +149,6 @@ t.clone_frame(40)
 
 t.gen_gif()
 
-print(f"\n{GIF generated: output.gif}")
+print("\nGIF generated: output.gif")
 print("\nEmbed in README.md:")
 print("![Terminal GIF](./output.gif)")
