@@ -119,11 +119,11 @@ t.clone_frame(3)
 
 skills = [
     (f"{R}Languages:{X}  ", "C, C++, Java, JS, Lua, Python, MySQL, C#"),
-    (f"{R}Web:{X}       ", "HTML, CSS, Three.js, Canvas API, Web Audio"),
+    (f"{R}Web:{X}       ", "HTML, CSS, Three.js, Canvas API, Web Audio, GraphQL"),
     (f"{R}Learning:{X}  ", "TypeScript, React, Node.js, Tailwind, DSA"),
     (f"{R}Tools:{X}     ", "Git, Neovim, VSCodium, Photoshop, DaVinci, Blender, Obsidian"),
-    (f"{R}OS:{X}        ", "Arch Linux · GNOME 50 · Windows"),
-    (f"{R}Terminal:{X}  ", "Kitty, Oh My Posh, Bash, PowerShell"),
+    (f"{R}OS:{X}        ", "Arch Linux (CachyOS) · Windows 11 Pro"),
+    (f"{R}Terminal:{X}  ", "Kitty, PowerShell"),
     (f"{R}Featured:{X}  ", "animanga-archive  (2.5k+ JS, 1.8k+ CSS)"),
 ]
 
