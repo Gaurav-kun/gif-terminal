@@ -56,7 +56,7 @@ t.clone_frame(8)
 t.gen_prompt(row_num=5)
 t.gen_typing_text("whoami", row_num=5, contin=True, speed=1)
 t.clone_frame(5)
-t.gen_text(f"{C}Gaurav Saikia{R}{X}  -  {G}BCA Student & OSS Believer{X}", row_num=6)
+t.gen_text(f"{C}Gaurav Saikia{R}{X}  -  {G}CS Student & OSS Believer{X}", row_num=6)
 t.clone_frame(15)
 
 # -- GitHub stats command --
@@ -118,10 +118,10 @@ t.gen_text(f"{C}=== Arsenal ==={X}", row_num=3)
 t.clone_frame(3)
 
 skills = [
-    (f"{R}Languages:{X}  ", "C, C++, Rust, Java, JS, Lua, Python, PHP"),
+    (f"{R}Languages:{X}  ", "C, C++, Java, JS, Lua, Python, MySQL, C#"),
     (f"{R}Web:{X}       ", "HTML, CSS, Three.js, Canvas API, Web Audio"),
-    (f"{R}Learning:{X}  ", "TypeScript, React, Node.js, Tailwind, PostgreSQL"),
-    (f"{R}Tools:{X}     ", "Git, Neovim, Kitty, Figma, Blender, Photoshop"),
+    (f"{R}Learning:{X}  ", "TypeScript, React, Node.js, Tailwind, DSA"),
+    (f"{R}Tools:{X}     ", "Git, Neovim, VSCodium, Photoshop, DaVinci, Blender, Obsidian"),
     (f"{R}OS:{X}        ", "Arch Linux · GNOME 50 · Windows"),
     (f"{R}Terminal:{X}  ", "Kitty, Oh My Posh, Bash, PowerShell"),
     (f"{R}Featured:{X}  ", "animanga-archive  (2.5k+ JS, 1.8k+ CSS)"),
