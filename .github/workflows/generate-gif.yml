@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-          THEME: macos
+          THEME: default
         run: |
           echo "Theme: $THEME  |  User: $GITHUB_REPOSITORY_OWNER"
           case "$THEME" in
